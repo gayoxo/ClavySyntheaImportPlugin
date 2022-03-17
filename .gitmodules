@@ -1,0 +1,3 @@
+[submodule "ClavyCSVImportPlugin"]
+	path = ClavyCSVImportPlugin
+	url = git@github.com:gayoxo/ClavyCSVImportPlugin.git
