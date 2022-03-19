@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import fdi.ucm.server.importparser.csv.CSVImporter;
+import fdi.ucm.server.importparser.synthea.transform.SyntheaTRANSFORM1;
 import fdi.ucm.server.modelComplete.collection.CompleteCollection;
 import fdi.ucm.server.modelComplete.collection.document.CompleteDocuments;
 import fdi.ucm.server.modelComplete.collection.document.CompleteElement;
@@ -49,6 +50,9 @@ public class SyntheaImporter {
 			
 		}
 		}
+		
+		
+		CC=new SyntheaTRANSFORM1(CC).aplica();
 		
 	}
 
