@@ -26,7 +26,9 @@ public class LoadCollectionSynthea extends LoadCollection {
 		{
 			ArrayList<ImportExportPair> ListaCampos=new ArrayList<ImportExportPair>();
 			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.File, "conditions CSV"));
+			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.Text, "conditions identiffier"));
 			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.File, "patiens CSV"));
+			ListaCampos.add(new ImportExportPair(ImportExportDataEnum.Text, "patiens identiffier"));
 			Parametros=ListaCampos;
 			return ListaCampos;
 		}

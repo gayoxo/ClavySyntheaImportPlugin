@@ -12,6 +12,7 @@ import fdi.ucm.server.modelComplete.collection.document.CompleteTextElement;
 
 public class SyntheaImporter {
 
+
 	private CompleteCollection CC;
 	private List<String> Log;
 
@@ -21,11 +22,21 @@ public class SyntheaImporter {
 	}
 
 	public void ProcessFile(ArrayList<String> dateEntrada) {
-		for (String string : dateEntrada) {
+		
+		String valor= null;
+		
+		for (int i = 0; i < dateEntrada.size(); i++) {
+			
+		if (i % 2 == 0)
+			valor = dateEntrada.get(i);
+		else
+		{
+			
+		
 			
 			try {
 				CSVImporter CSVImporterIN = new CSVImporter(Log);
-				CSVImporterIN.ProcessFile(string);
+				CSVImporterIN.ProcessFile(valor,dateEntrada.get(i));
 				CompleteCollection CinAdd = CSVImporterIN.getCollection();
 				
 				CC.getMetamodelGrammar().addAll(CinAdd.getMetamodelGrammar());
@@ -35,6 +46,8 @@ public class SyntheaImporter {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
+			
+		}
 		}
 		
 	}
@@ -45,16 +58,19 @@ public class SyntheaImporter {
 
 	public static void main(String[] args) {
 		ArrayList<String> Filepath=new ArrayList<String>();
-		Filepath.add("ejemplo/patients.csv");
-		Filepath.add("ejemplo/conditions.csv");
-
+		Filepath.add(args[0]+"/patients.csv");
+		Filepath.add("id");
+		Filepath.add(args[0]+"/conditions.csv");
+		Filepath.add("NO TIENE IDENTIFIER");
+		
+		
 		LinkedList<String> Logs=new LinkedList<String>();
 		SyntheaImporter SI=new SyntheaImporter(Logs);
 		SI.ProcessFile(Filepath);
 		CompleteCollection ccfin = SI.getCollection();
 		
 		for (CompleteDocuments docume : ccfin.getEstructuras()) {
-			System.out.println("docu"+docume.getDescriptionText());
+			System.out.println("docu_>"+docume.getDescriptionText());
 			for (CompleteElement eleme : docume.getDescription()) {
 				System.out.println("-----"+eleme.getHastype().getName()+
 						":"+((CompleteTextElement)eleme).getValue());
