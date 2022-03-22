@@ -1,4 +1,4 @@
-package fdi.ucm.server.importparser.synthea;
+package fdi.ucm.server.importparser.synthea.conditionsonly;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -7,58 +7,35 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import fdi.ucm.server.importparser.csv.CSVImporter;
+import fdi.ucm.server.importparser.synthea.SyntheaImporter;
+import fdi.ucm.server.importparser.synthea.transform.SyntheaTRANSFORM_ACOPLADO;
+import fdi.ucm.server.importparser.synthea.transform.SyntheaTRANSFORM_REMOVE_DISORDER;
+import fdi.ucm.server.importparser.synthea.transform.SyntheaTRANSFORM_REMOVE_FINDING;
 import fdi.ucm.server.modelComplete.collection.CompleteCollection;
 import fdi.ucm.server.modelComplete.collection.document.CompleteDocuments;
 import fdi.ucm.server.modelComplete.collection.document.CompleteElement;
 import fdi.ucm.server.modelComplete.collection.document.CompleteTextElement;
 
-public class SyntheaImporter {
+public class SyntheaImporterConditionsOnly extends SyntheaImporter{
 
 
-	protected CompleteCollection CC;
-	protected List<String> Log;
 
-	public SyntheaImporter(List<String> log) {
-		CC=new CompleteCollection("Synthea", "Synthea");
-		Log=log;
+	public SyntheaImporterConditionsOnly(List<String> log) {
+		super(log);
 	}
 
 	public void ProcessFile(ArrayList<String> dateEntrada) {
 		
-		String valor= null;
+		super.ProcessFile(dateEntrada);
 		
-		for (int i = 0; i < dateEntrada.size(); i++) {
-			
-		if (i % 2 == 0)
-			valor = dateEntrada.get(i);
-		else
-		{
-			
+		CC=new SyntheaTRANSFORM_REMOVE_FINDING(CC).aplica();
+		CC=new SyntheaTRANSFORM_REMOVE_DISORDER(CC).aplica();
 		
-			
-			try {
-				CSVImporter CSVImporterIN = new CSVImporter(Log);
-				CSVImporterIN.ProcessFile(valor,dateEntrada.get(i));
-				CompleteCollection CinAdd = CSVImporterIN.getCollection();
-				
-				CC.getMetamodelGrammar().addAll(CinAdd.getMetamodelGrammar());
-				CC.getEstructuras().addAll(CinAdd.getEstructuras());
-
-				
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-			
-		}
-		}
-		
+		CC=new SyntheaTRANSFORM_ACOPLADO(CC).aplica();
 		
 	}
 
-	public CompleteCollection getCollection() {
-		return CC;
-	}
+	
 
 	public static void main(String[] args) {
 		ArrayList<String> Filepath=new ArrayList<String>();
@@ -69,7 +46,7 @@ public class SyntheaImporter {
 		
 		
 		LinkedList<String> Logs=new LinkedList<String>();
-		SyntheaImporter SI=new SyntheaImporter(Logs);
+		SyntheaImporterConditionsOnly SI=new SyntheaImporterConditionsOnly(Logs);
 		SI.ProcessFile(Filepath);
 		CompleteCollection ccfin = SI.getCollection();
 		
@@ -86,6 +63,7 @@ public class SyntheaImporter {
 		}
 		if (Logs.isEmpty())
 			System.out.println("Correcto");
+		
 		
 		 try {
 				String FileIO = System.getProperty("user.home")+File.separator+System.currentTimeMillis()+".clavy";

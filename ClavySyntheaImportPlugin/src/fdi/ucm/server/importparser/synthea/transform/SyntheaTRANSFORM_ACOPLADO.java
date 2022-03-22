@@ -12,11 +12,11 @@ import fdi.ucm.server.modelComplete.collection.document.CompleteTextElement;
 import fdi.ucm.server.modelComplete.collection.grammar.CompleteGrammar;
 import fdi.ucm.server.modelComplete.collection.grammar.CompleteTextElementType;
 
-public class SyntheaTRANSFORM1 {
+public class SyntheaTRANSFORM_ACOPLADO {
 
 	private CompleteCollection CC;
 	
-	public SyntheaTRANSFORM1(CompleteCollection cC) {
+	public SyntheaTRANSFORM_ACOPLADO(CompleteCollection cC) {
 		CC=cC;
 	}
 
@@ -89,7 +89,8 @@ public class SyntheaTRANSFORM1 {
 							if (textElementValues.getHastype().getCollectionFather().getNombre().toLowerCase().equals("conditions.csv")
 									&&textElementValues.getHastype().getName().toLowerCase().equals("description") )
 										{
-										CompleteTextElement TE=new CompleteTextElement(Conditions.get(i), ((CompleteTextElement) textElementValues).getValue());
+										String Value=((CompleteTextElement) textElementValues).getValue().replace(" ", "_");
+										CompleteTextElement TE=new CompleteTextElement(Conditions.get(i), Value);
 										pacienteReal.getDescription().add(TE);
 										}
 					}

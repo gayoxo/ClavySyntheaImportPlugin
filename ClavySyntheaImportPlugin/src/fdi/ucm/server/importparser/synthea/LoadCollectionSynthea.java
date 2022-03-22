@@ -15,9 +15,9 @@ import fdi.ucm.server.modelComplete.collection.CompleteCollectionAndLog;
  */
 public class LoadCollectionSynthea extends LoadCollection {
 
-	private static ArrayList<ImportExportPair> Parametros;
-	private ArrayList<String> Log;
-	private SyntheaImporter syntheaImporter;
+	protected static ArrayList<ImportExportPair> Parametros;
+	protected ArrayList<String> Log;
+	protected SyntheaImporter syntheaImporter;
 	
 
 
