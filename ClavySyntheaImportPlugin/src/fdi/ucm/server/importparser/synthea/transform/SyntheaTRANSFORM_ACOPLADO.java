@@ -89,7 +89,7 @@ public class SyntheaTRANSFORM_ACOPLADO {
 							if (textElementValues.getHastype().getCollectionFather().getNombre().toLowerCase().equals("conditions.csv")
 									&&textElementValues.getHastype().getName().toLowerCase().equals("description") )
 										{
-										String Value=((CompleteTextElement) textElementValues).getValue().replace(" ", "_");
+										String Value=((CompleteTextElement) textElementValues).getValue().replace(" ", "_").trim();
 										CompleteTextElement TE=new CompleteTextElement(Conditions.get(i), Value);
 										pacienteReal.getDescription().add(TE);
 										}
