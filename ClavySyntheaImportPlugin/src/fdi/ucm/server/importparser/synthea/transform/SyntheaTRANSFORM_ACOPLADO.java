@@ -79,8 +79,8 @@ public class SyntheaTRANSFORM_ACOPLADO {
 					CTETo.setMultivalued(true);
 					CTETo.setBrowseable(true);
 					CTETo.setClassOfIterator(CTET);
-					Gramatica_del_Paciente.getSons().add(CTET);
-					Conditions.add(CTET);
+					Gramatica_del_Paciente.getSons().add(CTETo);
+					Conditions.add(CTETo);
 				}
 				
 				for (int i = 0; i < condicionespat.size(); i++) {
