@@ -34,7 +34,7 @@ public class LoadCollectionSyntheaConditionsOnlyNoCovid extends LoadCollectionSy
 
 	@Override
 	public String getName() {
-		return "Synthea import Acoplado";
+		return "Synthea import Solo Conditions y sin Covid";
 	}
 
 
