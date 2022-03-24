@@ -133,7 +133,7 @@ private CompleteCollection CC;
 				}
 
 				for (int i = 0; i < condicionesSolas.size(); i++) {
-					for (CompleteElement textElementValues : condicionespat.get(i).getDescription()) {
+					for (CompleteElement textElementValues : condicionesSolas.get(i).getDescription()) {
 						if (textElementValues instanceof CompleteTextElement)
 							if (textElementValues.getHastype().getCollectionFather().getNombre().toLowerCase().equals("conditions.csv")
 									&&textElementValues.getHastype().getName().toLowerCase().equals("description") )
@@ -159,7 +159,7 @@ private CompleteCollection CC;
 				}
 
 				for (int i = 0; i < findingsSolas.size(); i++) {
-					for (CompleteElement textElementValues : condicionespat.get(i).getDescription()) {
+					for (CompleteElement textElementValues : findingsSolas.get(i).getDescription()) {
 						if (textElementValues instanceof CompleteTextElement)
 							if (textElementValues.getHastype().getCollectionFather().getNombre().toLowerCase().equals("conditions.csv")
 									&&textElementValues.getHastype().getName().toLowerCase().equals("description") )
@@ -181,7 +181,7 @@ private CompleteCollection CC;
 				}
 
 				for (int i = 0; i < disorderSolas.size(); i++) {
-					for (CompleteElement textElementValues : condicionespat.get(i).getDescription()) {
+					for (CompleteElement textElementValues : disorderSolas.get(i).getDescription()) {
 						if (textElementValues instanceof CompleteTextElement)
 							if (textElementValues.getHastype().getCollectionFather().getNombre().toLowerCase().equals("conditions.csv")
 									&&textElementValues.getHastype().getName().toLowerCase().equals("description") )
@@ -199,17 +199,17 @@ private CompleteCollection CC;
 		
 		Gramatica_del_Paciente.getSons().add(CTET);
 		for (CompleteTextElementType completeTextElementType : Conditions) 
-			if (CTET==completeTextElementType)
+			if (CTET!=completeTextElementType)
 				Gramatica_del_Paciente.getSons().add(completeTextElementType);
 		
 		Gramatica_del_Paciente.getSons().add(DTET);
 		for (CompleteTextElementType completeTextElementType : Disorders) 
-			if (DTET==completeTextElementType)
+			if (DTET!=completeTextElementType)
 				Gramatica_del_Paciente.getSons().add(completeTextElementType);
 		
 		Gramatica_del_Paciente.getSons().add(FTET);
 		for (CompleteTextElementType completeTextElementType : Findings) 
-			if (FTET==completeTextElementType)
+			if (FTET!=completeTextElementType)
 				Gramatica_del_Paciente.getSons().add(completeTextElementType);
 		
 		

@@ -9,6 +9,7 @@ import java.util.List;
 
 import fdi.ucm.server.importparser.synthea.SyntheaImporter;
 import fdi.ucm.server.importparser.synthea.transform.SyntheaTRANSFORM_ACOPLADO_SEPARADO;
+import fdi.ucm.server.importparser.synthea.transform.SyntheaTRANSFORM_REMOVE_COVID;
 import fdi.ucm.server.modelComplete.collection.CompleteCollection;
 import fdi.ucm.server.modelComplete.collection.document.CompleteDocuments;
 import fdi.ucm.server.modelComplete.collection.document.CompleteElement;
@@ -25,6 +26,8 @@ public class SyntheaImporterAcopaladoSeparado extends SyntheaImporter{
 	public void ProcessFile(ArrayList<String> dateEntrada) {
 		
 		super.ProcessFile(dateEntrada);
+		
+		CC=new SyntheaTRANSFORM_REMOVE_COVID(CC).aplica();
 		
 		CC=new SyntheaTRANSFORM_ACOPLADO_SEPARADO(CC).aplica();
 		
