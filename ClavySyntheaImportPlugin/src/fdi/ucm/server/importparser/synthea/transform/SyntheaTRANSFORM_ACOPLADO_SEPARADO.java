@@ -52,7 +52,7 @@ private CompleteCollection CC;
 		FTET.setBrowseable(true);
 		FTET.setClassOfIterator(FTET);
 		
-		Findings.add(CTET);
+		Findings.add(FTET);
 		
 		
 		
@@ -138,7 +138,8 @@ private CompleteCollection CC;
 							if (textElementValues.getHastype().getCollectionFather().getNombre().toLowerCase().equals("conditions.csv")
 									&&textElementValues.getHastype().getName().toLowerCase().equals("description") )
 										{
-										String Value=((CompleteTextElement) textElementValues).getValue().replace(" ", "_").trim();
+										String Value=((CompleteTextElement) textElementValues).getValue()
+												.trim().replace(" ", "_").replace("-", "_minus_").replace("+", "_plus_");
 										CompleteTextElement TE=new CompleteTextElement(Conditions.get(i), Value);
 										pacienteReal.getDescription().add(TE);
 										}
@@ -164,7 +165,9 @@ private CompleteCollection CC;
 							if (textElementValues.getHastype().getCollectionFather().getNombre().toLowerCase().equals("conditions.csv")
 									&&textElementValues.getHastype().getName().toLowerCase().equals("description") )
 										{
-										String Value=((CompleteTextElement) textElementValues).getValue().replace(" ", "_").trim();
+										String Value=((CompleteTextElement) textElementValues).getValue();
+										Value=Value.replace("(finding)","").trim();
+										Value=Value.replace(" ", "_").replace("-", "_minus_").replace("+", "_plus_");
 										CompleteTextElement TE=new CompleteTextElement(Findings.get(i), Value);
 										pacienteReal.getDescription().add(TE);
 										}
@@ -186,7 +189,9 @@ private CompleteCollection CC;
 							if (textElementValues.getHastype().getCollectionFather().getNombre().toLowerCase().equals("conditions.csv")
 									&&textElementValues.getHastype().getName().toLowerCase().equals("description") )
 										{
-										String Value=((CompleteTextElement) textElementValues).getValue().replace(" ", "_").trim();
+										String Value=((CompleteTextElement) textElementValues).getValue();
+										Value=Value.replace("(disorder)","").trim();
+										Value=Value.replace(" ", "_").replace("-", "_minus_").replace("+", "_plus_");
 										CompleteTextElement TE=new CompleteTextElement(Disorders.get(i), Value);
 										pacienteReal.getDescription().add(TE);
 										}
@@ -214,5 +219,27 @@ private CompleteCollection CC;
 		
 		
 		return CCSalida;
+	}
+	
+	public static void main(String[] args) {
+		
+		{
+		String Value="Diabetic renal disease (disorder)";
+		Value=Value.replace("(disorder)","").trim();
+		Value=Value.replace(" ", "_");
+		
+		System.out.println(Value);
+		}
+		
+		{
+			String Value="Loss of taste (finding)";
+			Value=Value.replace("(finding)","").trim();
+			Value=Value.replace(" ", "_");
+			
+			System.out.println(Value);
+			}
+		
+		
+		
 	}
 }
