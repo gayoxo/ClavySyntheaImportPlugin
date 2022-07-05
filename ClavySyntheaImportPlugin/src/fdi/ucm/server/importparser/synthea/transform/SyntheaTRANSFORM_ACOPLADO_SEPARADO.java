@@ -55,6 +55,15 @@ private CompleteCollection CC;
 		Findings.add(FTET);
 		
 		
+		LinkedList<CompleteTextElementType> Situations=new LinkedList<CompleteTextElementType>();
+		CompleteTextElementType STET=new CompleteTextElementType("Situation", Gramatica_del_Paciente);
+		STET.setMultivalued(true);
+		STET.setBrowseable(true);
+		STET.setClassOfIterator(STET);
+		
+		Situations.add(STET);
+		
+		
 		
 		
 		HashMap<String, CompleteDocuments> patientIdHash=new HashMap<String, CompleteDocuments>();
@@ -99,6 +108,7 @@ private CompleteCollection CC;
 				List<CompleteDocuments> condicionesSolas=new LinkedList<CompleteDocuments>();
 				List<CompleteDocuments> disorderSolas=new LinkedList<CompleteDocuments>();
 				List<CompleteDocuments> findingsSolas=new LinkedList<CompleteDocuments>();
+				List<CompleteDocuments> situationsSolas=new LinkedList<CompleteDocuments>();
 				
 
 					for (CompleteDocuments completeDocuments : condicionespat) {
@@ -114,6 +124,8 @@ private CompleteCollection CC;
 									disorderSolas.add(completeDocuments);
 								else if (Pattern.compile("(finding)").matcher(((CompleteTextElement) completeelemento2Doc).getValue().toLowerCase()).find())
 									findingsSolas.add(completeDocuments);
+								else if (Pattern.compile("(situation)").matcher(((CompleteTextElement) completeelemento2Doc).getValue().toLowerCase()).find())
+									situationsSolas.add(completeDocuments);
 								else
 									condicionesSolas.add(completeDocuments);
 								
@@ -197,6 +209,39 @@ private CompleteCollection CC;
 										}
 					}
 				}
+				
+				
+				
+				while (Situations.size()<situationsSolas.size())
+				{
+					
+					
+					CompleteTextElementType STETo=new CompleteTextElementType("Situation", Gramatica_del_Paciente);
+					STETo.setMultivalued(true);
+					STETo.setBrowseable(true);
+					STETo.setClassOfIterator(STET);
+					
+					Situations.add(STETo);
+					
+				}
+
+				for (int i = 0; i < situationsSolas.size(); i++) {
+					for (CompleteElement textElementValues : situationsSolas.get(i).getDescription()) {
+						if (textElementValues instanceof CompleteTextElement)
+							if (textElementValues.getHastype().getCollectionFather().getNombre().toLowerCase().equals("conditions.csv")
+									&&textElementValues.getHastype().getName().toLowerCase().equals("description") )
+										{
+										String Value=((CompleteTextElement) textElementValues).getValue();
+										Value=Value.replace("(situation)","").trim();
+										Value=Value.replace(" ", "_").replace("-", "_minus_").replace("+", "_plus_");
+										CompleteTextElement TE=new CompleteTextElement(Situations.get(i), Value);
+										pacienteReal.getDescription().add(TE);
+										}
+					}
+				}
+				
+				
+				
 			}
 			
 		}
@@ -217,6 +262,11 @@ private CompleteCollection CC;
 			if (FTET!=completeTextElementType)
 				Gramatica_del_Paciente.getSons().add(completeTextElementType);
 		
+		Gramatica_del_Paciente.getSons().add(STET);
+		for (CompleteTextElementType completeTextElementType : Situations) 
+			if (STET!=completeTextElementType)
+				Gramatica_del_Paciente.getSons().add(completeTextElementType);
+		
 		
 		return CCSalida;
 	}
@@ -234,6 +284,15 @@ private CompleteCollection CC;
 		{
 			String Value="Loss of taste (finding)";
 			Value=Value.replace("(finding)","").trim();
+			Value=Value.replace(" ", "_");
+			
+			System.out.println(Value);
+			}
+		
+		
+		{
+			String Value="History of cardiac arrest (situation)";
+			Value=Value.replace("(situation)","").trim();
 			Value=Value.replace(" ", "_");
 			
 			System.out.println(Value);
